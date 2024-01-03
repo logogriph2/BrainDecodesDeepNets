@@ -29,15 +29,15 @@ class BrainDataset(Dataset):
         ## fmri is loaded into memory
         lh_fmri = np.load(os.path.join(self.fmri_dir, "lh_training_fmri.npy"))
         rh_fmri = np.load(os.path.join(self.fmri_dir, "rh_training_fmri.npy"))
-        _fmri = np.concatenate([lh_fmri, rh_fmri], axis=1)  # (9841, 39548)
+        fmri = np.concatenate([lh_fmri, rh_fmri], axis=1)  # (9841, 39548)
         # 39548 is visual cortex vertices used by algonauts23, nsdgeneral (37984) + RSC (1564)
         # remove RSC, keep only nsdgeneral
-        fmri = []
-        for i in range(_fmri.shape[0]):
-            _i_fsaverage = np.zeros(327684)
-            _i_fsaverage[algo23_indices] = _fmri[i]
-            _i_fmri = _i_fsaverage[nsdgeneral_indices]
-            fmri.append(_i_fmri)
+        #fmri = []
+        #for i in range(_fmri.shape[0]):
+        #    _i_fsaverage = np.zeros(327684)
+        #    _i_fsaverage[algo23_indices] = _fmri[i]
+        #    _i_fmri = _i_fsaverage[nsdgeneral_indices]
+        #    fmri.append(_i_fmri)
         fmri = np.stack(fmri, axis=0)
         self.fmri = fmri
 

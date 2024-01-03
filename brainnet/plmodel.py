@@ -8,7 +8,7 @@ from torchmetrics import R2Score
 from brainnet.coords import load_coords
 from brainnet.dataset import BrainDataset
 from brainnet.plot_utils import make_training_plot
-from brainnet.roi import nsdgeneral_indices
+from brainnet.roi import nsdgeneral_indices, algo23_indices,load_algonauts23_indices_subj
 from brainnet.model import FactorTopy
 import matplotlib.pyplot as plt
 
@@ -21,14 +21,18 @@ class PLModel(pl.LightningModule):
         self.config = config
         self.draw = draw
 
+        train_val_split = config.DATASET.TRAIN_VAL_SPLIT
+
         # dataset
         self.dataset = BrainDataset(config.DATASET.DATA_DIR, config.DATASET.RESOLUTION)
+        train_size = int(train_val_split* len(self.dataset))
+        test_size = len(self.dataset) - train_size
         self.train_dataset, self.val_dataset = torch.utils.data.random_split(
-            self.dataset, [9000, 841]
+            self.dataset, [train_size, test_size]
         )
 
         # coordinates
-        self.coords = load_coords()[nsdgeneral_indices]
+        self.coords = load_coords()[load_algonauts23_indices_subj(config.DATASET.DATA_DIR)]
         self.n_vertices = self.coords.shape[0]
         self.coords = nn.Parameter(torch.from_numpy(self.coords).float())
         self.coords.requires_grad = False  # freeze

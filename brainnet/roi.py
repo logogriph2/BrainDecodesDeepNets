@@ -1,5 +1,7 @@
 import numpy as np
 
+import os
+
 from brainnet.roi_data import ROI_DATA
 
 roi_names = [
@@ -74,18 +76,20 @@ for big, small in zip(roi_names, _inner_roi_names):
 
 
 def load_algonauts23_indices():
-    # _lh = np.load(
-    #     str(files("brainnet").joinpath("roi_masks/lh.all-vertices_fsaverage_space.npy"))
-    # )
-    # _rh = np.load(
-    #     str(files("brainnet").joinpath("roi_masks/rh.all-vertices_fsaverage_space.npy"))
-    # )
-    # binarized = np.concatenate([_lh, _rh])
-    # indices = np.where(binarized == 1)[0]
-    # return indices
     _lh = np.array(ROI_DATA["lh.all-vertices_fsaverage_space"])
     _rh = np.array(ROI_DATA["rh.all-vertices_fsaverage_space"])
     return np.concatenate([_lh, _rh])
+
+def load_algonauts23_indices_subj(subj_dir):
+    _lh = np.load(
+        os.path.join(subj_dir,"roi_masks","lh.all-vertices_fsaverage_space.npy")
+    )
+    _rh = np.load(
+        os.path.join(subj_dir,"roi_masks","rh.all-vertices_fsaverage_space.npy")
+    )
+    binarized = np.concatenate([_lh, _rh])
+    indices = np.where(binarized == 1)[0]
+    return indices
 
 algo23_indices = load_algonauts23_indices() # 39548
 

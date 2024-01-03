@@ -150,7 +150,7 @@ class ModifiedSAM(torch.nn.Module):
                 x_save = x.clone()
                 x_save = x_save.permute(0, 3, 1, 2)
                 local_tokens[f"{i}"] = x_save
-                global_tokens[f"{i}"] = x_save.mean(dim=(2, 3))
+                global_tokens[f"{i}"] = x_save.mean(dim=(2, 3))               
 
             return local_tokens, global_tokens
 
