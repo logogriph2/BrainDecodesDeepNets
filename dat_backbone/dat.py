@@ -210,11 +210,7 @@ class TransformerStage(nn.Module):
                 x = self.mlps[d](self.layer_norms[2 * d + 1](x))
                 x = self.layer_scales[2 * d + 1](x)
                 x = self.drop_path[d](x) + x0
-            # positions.append(pos)
-            # references.append(ref)
 
-        # return x, positions, references
-        # assert x.dtype == torch.float16, f"AMP failed!, dtype={x.dtype}"
         return x
 
     @auto_fp16(apply_to=('x', ))
@@ -223,16 +219,7 @@ class TransformerStage(nn.Module):
             return cp.checkpoint(self._inner_forward, x)
         else:
             return self._inner_forward(x)
-
-
-'''
-cfg.MODEL.BACKBONE.LAYERS = [0,1,2,3]
-        cfg.MODEL.BACKBONE.FEATURE_DIMS = [128, 256, 512, 1024]
-        cfg.MODEL.BACKBONE.CLS_DIMS = [256, 512, 1024, 2048]#!!!!SEARCH
-        cfg.MODEL.BACKBONE_SMALL.LAYERS = [1,3]
-        cfg.MODEL.BACKBONE_SMALL.CLS_DIMS = [256, 1024]
-        cfg.MODEL.BACKBONE.SKIP_CONNECTION = False
-'''
+        
 
 class DAT(nn.Module):
 
@@ -269,7 +256,7 @@ class DAT(nn.Module):
                  log_cpb=[False, False, False, False],
                  out_indices=(0, 1, 2, 3),
                  use_checkpoint=True,
-                 init_cfg=dict(type='Pretrained', checkpoint='/home/admin2/Algonaut/dat_ckpts/dat.pth'),#'/home/admin2/Algonaut/dat_models/cmrcn_dat_b_3x.pth'),
+                 init_cfg=dict(type='Pretrained', checkpoint='/home/admin/Algonaut/dat_ckpts/dat.pth'),
                  **kwargs):
         super().__init__()
         
