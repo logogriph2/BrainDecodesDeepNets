@@ -4,8 +4,7 @@ FactorTopy model with DAT++ backbone for fMRI prediction visual cortex’s fMRI 
 
 # Usage
 
-* Dowanload pretrained DAT++ [here](https://1drv.ms/u/s!ApI0vb6wPqmtgroNdQXStfHGPbzkpw?e=fWJT5O) or [here](https://1drv.ms/u/s!ApI0vb6wPqmtgroVYhIIowSbZOFXFw?e=uNShfl)
-
+* Dowanload a pretrained DAT++ from [this checkpoint](https://1drv.ms/u/s!ApI0vb6wPqmtgroNdQXStfHGPbzkpw?e=fWJT5O) or [this checkpoint](https://1drv.ms/u/s!ApI0vb6wPqmtgroVYhIIowSbZOFXFw?e=uNShfl)
 * Use [train_model.ipynb](https://github.com/logogriph2/BrainDecodesDeepNets/blob/main/train_model.ipynb) for training the FactorTopy with DAT++ backbone
 * Use prepare_dat_submission.ipynb (https://github.com/logogriph2/BrainDecodesDeepNets/blob/main/prepare_dat_submission.ipynb) for preparing Algonauts2023 submission
 
